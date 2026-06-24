@@ -1,0 +1,49 @@
+#lab5
+from selenium import webdriver
+from selenium.webdriver.common.by import By 
+from selenium.webdriver.common.keys import Keys
+print("starting test..")
+driver=webdriver.Chrome()
+print("Opening google..")
+driver.get("https://www.google.com")
+print("typing 'MIT college'..")
+search=driver.find_element(By.NAME,"q")
+search.send_keys("MIT college")
+search.send_keys(Keys.RETURN)
+print("search executed successfully..")
+input("press enter to close the browser..")
+print("closing browser..")
+driver.quit()
+print("test completed")
+
+
+#lab6
+  
+from selenium import webdriver
+from selenium.webdriver.common.by import By 
+from selenium.webdriver.common.keys import Keys
+import time
+print("continuous Xpath search demo starting ..")
+driver=webdriver.Chrome()
+driver.get("https://www.google.com")
+time.sleep(3)
+search_terms=[
+    "XPath example
+    ", "Selenium XPah tutorial", "XPath contains example"
+]
+for term in search_terms:
+    print("searching for {term}")
+    search=driver.find_element(By.NAME,"q")
+    search.clear()
+    time.sleep(1)
+    for char in term:
+        search.send_keys(char)
+        time.sleep(0.1)
+    time.sleep(1)
+    search.send_keys(Keys.RETURN)
+    print("search executed")
+    time.sleep(5)
+    driver.get("https://www.google.com")
+    time.sleep(3)
+input("press enter to close the browser..")
+driver.quit()
