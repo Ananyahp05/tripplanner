@@ -1,3 +1,60 @@
+#3
+pipeline{
+    agent any
+    
+    stages{
+        stage('checkout code'){
+            steps{
+                git branch: 'main', url: 'https://github.com/Ananyahp05/Jenkins-demo.git'
+            }
+        }
+        stage('status'){
+            steps{
+                echo "Successfully fetched the repository"
+    }
+}
+
+
+#4 and #7
+pipeline{
+    agent any
+    
+    
+    tools{
+        maven 'mymaven'
+    }
+    
+    stages{
+        stage('checkout'){
+            steps{
+                git branch: 'main', url: 'https://github.com/Ananyahp05/Jenkins-demo.git'
+            }
+        }
+        stage('Validate'){
+            steps{
+                sh'mvn validate'
+            }
+        }
+        stage('Test'){
+            steps{
+                sh'mvn test'
+            }
+        }
+        stage('Compile'){
+             steps{
+                 sh 'mvn compile'
+             }
+         }
+         stage('Package'){
+             steps{
+                 sh 'mvn package'
+             }
+         }
+        
+}
+}
+
+
 #lab5
 from selenium import webdriver
 from selenium.webdriver.common.by import By 
