@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
 
-# Load the Iris dataset
+
 iris = load_iris()
 
 df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
@@ -12,29 +12,24 @@ df['species'] = df['species'].map(
     {i: species for i, species in enumerate(iris.target_names)}
 )
 
-# Preview the data
 print("First 5 rows of dataset:")
 print(df.head())
 
-# Dataset summary
 print("\nDataset Info:")
 df.info()
 
 print("\nSummary Statistics:")
 print(df.describe())
 
-# Pairplot
 sns.pairplot(df, hue="species")
 plt.suptitle("Pairplot of Iris Features by Species", y=1.02)
 plt.show()
 
-# Correlation heatmap
 plt.figure(figsize=(8, 6))
 sns.heatmap(df.iloc[:, :-1].corr(), annot=True, cmap='coolwarm')
 plt.title("Correlation Matrix")
 plt.show()
 
-# Boxplots
 for feature in iris.feature_names:
     plt.figure(figsize=(6, 4))
     sns.boxplot(x='species', y=feature, data=df)
