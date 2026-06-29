@@ -7,17 +7,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
-# Load dataset
 iris = datasets.load_iris()
 
 X = iris.data
 y = iris.target
 
-# Standardize
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Train Test Split
 X_train, X_test, y_train, y_test = train_test_split(
     X_scaled,
     y,
@@ -25,7 +22,6 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# Test different K values
 k_values = range(1, 21)
 accuracies = []
 
@@ -40,7 +36,6 @@ for k in k_values:
 
     print(f"k={k}: Accuracy={acc:.2f}")
 
-# Plot
 plt.figure(figsize=(10, 6))
 plt.plot(k_values, accuracies, marker='o')
 plt.title("k-NN Accuracy")
