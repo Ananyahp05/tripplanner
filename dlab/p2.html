@@ -4,22 +4,19 @@ from sklearn.datasets import load_iris
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-# Load Iris dataset
 iris = load_iris()
 
 X = pd.DataFrame(iris.data, columns=iris.feature_names)
 
-# Simulate missing values
 np.random.seed(0)
 X.loc[X.sample(frac=0.1).index, 'sepal length (cm)'] = np.nan
 
-# Simulate categorical column
 X['flower_type'] = np.random.choice(
     ['Type A', 'Type B', 'Type C'],
     size=len(X)
 )
 
-# Imputation
+
 imputer = SimpleImputer(strategy='mean')
 X_numeric_imputed = imputer.fit_transform(X[iris.feature_names])
 
@@ -31,7 +28,7 @@ X_numeric_imputed_df = pd.DataFrame(
 print("After Imputation:")
 print(X_numeric_imputed_df.head())
 
-# One Hot Encoding
+
 encoder = OneHotEncoder(handle_unknown='ignore')
 X_categorical_encoded = encoder.fit_transform(X[['flower_type']])
 
@@ -43,7 +40,6 @@ encoded_df = pd.DataFrame(
 print("\nAfter One Hot Encoding:")
 print(encoded_df.head())
 
-# Standardization
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X_numeric_imputed_df)
 
@@ -55,7 +51,6 @@ X_scaled_df = pd.DataFrame(
 print("\nAfter Standardization:")
 print(X_scaled_df.head())
 
-# Final Dataset
 X_processed = pd.concat([X_scaled_df, encoded_df], axis=1)
 
 print("\nFinal Preprocessed Dataset:")
