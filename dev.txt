@@ -104,3 +104,101 @@ for term in search_terms:
     time.sleep(3)
 input("press enter to close the browser..")
 driver.quit()
+
+
+
+#8
+
+application file 
+from flask import Flask 
+app = Flask(__name__) 
+# dockerfile 
+FROM python:3.9-slim 
+WORKDIR /app 
+COPY requirements.txt . 
+RUN pip install --no-cache-dir -r requirements.txt 
+COPY . . 
+EXPOSE 5000 
+ 
+@ flask main.py file 
+from app import app 
+@app.route('/') 
+def home(): 
+return 'Hello from Docker! Flask app is running inside a container.' 
+@app.route('/health') 
+def health(): 
+return 'OK', 200 
+if __name__ == '__main__': 
+app.run(host='0.0.0.0', port=5000)
+ B
+uil
+d 
+D
+o
+c
+k
+e
+r
+CMD ["python", "main.py"] 
+ 
+# requirements file 
+flask==2.3.2 
+  
+1. app.py 
+from flask import Flask 
+ a
+ 
+p
+p
+ 
+= 
+Fl
+a
+s
+k
+(
+_
+_
+n
+a
+m
+e
+_
+_
+)
+ 
+2. main.py 
+from app import app 
+ 
+@app.route('/') 
+def home(): 
+    return 'Hello from Docker! Flask app is running inside a container.' 
+ 
+@app.route('/health') 
+def health(): 
+    return 'OK', 200 
+ 
+if __name__ == '__main__': 
+    app.run(host='0.0.0.0', port=5000) 
+ 
+3. Dockerfile 
+FROM python:3.9-slim 
+ W
+ C
+Y requirements.txt .  RUN pip install --no-cache-dir -r requirements.txt  COPY . .  EXPOSE 5000  CMD ["python", "main.py"]  
+O
+O
+P
+R
+K
+DI
+R /app 
+4. requirements.txt 
+Flask==2.3.2 
+ 
+Project Structure 
+Docker-Flask-App/ 
+│── app.py 
+│── main.py 
+│── Dockerfile 
+│── requirements.txt 
